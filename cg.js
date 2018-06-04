@@ -95,8 +95,8 @@ function convert12(api){
     if (argv.verbose) console.log('Converting Swagger 1.2 definition');
     let options = {};
     options.source = defName;
-    var base = options.source.split('/');
-    var filename = base.pop();
+    var aBase = options.source.split('/');
+    var filename = aBase.pop();
     var extension = '';
     if (filename.endsWith('.json')) {
         extension = '.json';
@@ -105,9 +105,9 @@ function convert12(api){
         extension = '.yaml';
     }
     else {
-        base.push(filename);
+        aBase.push(filename);
     }
-    base = base.join('/');
+    let base = aBase.join('/');
 
     //if (options.source.endsWith('.json') || options.source.endsWith('.yaml')) {
     //    extension = '';

@@ -1,38 +1,30 @@
 {
-  "_from": "openapi-codegen",
-  "_id": "openapi-codegen@1.5.0",
-  "_inBundle": false,
-  "_integrity": "sha512-9ufLr75HI08EkGK+dv5t3a8xoHwCnVync6OuMVHj0cwJlXdGgAvb8vRH5ADIZWewBxOrq1L7iGTYokmp4TwVrA==",
-  "_location": "/openapi-codegen",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "openapi-codegen",
-    "name": "openapi-codegen",
-    "escapedName": "openapi-codegen",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/openapi-codegen/-/openapi-codegen-1.5.0.tgz",
-  "_shasum": "00760250f2634d9e1cd28417703b591f1c80ab53",
-  "_spec": "openapi-codegen",
-  "_where": "/Users/carlosbritolage/Dropbox/Aruki/dev/phoenix/phoenix-api",
-  "author": {
-    "name": "Mike Ralphson"
-  },
+  "name": "openapi-codegen",
+  "version": "1.5.0",
+  "description": "OpenAPI 3.0 CodeGen",
+  "main": "index.js",
   "bin": {
     "cg": "./cg.js"
   },
-  "bugs": {
-    "url": "https://github.com/Mermade/openapi-codegen/issues"
+  "scripts": {
+    "test": "npx mocha --delay"
   },
-  "bundleDependencies": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aruki-delivery/openapi-codegen.git"
+  },
+  "keywords": [
+    "openapi",
+    "swagger",
+    "openapi3",
+    "codegen"
+  ],
+  "author": "Mike Ralphson",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/aruki-delivery/openapi-codegen/issues"
+  },
+  "homepage": "https://github.com/aruki-delivery/openapi-codegen#readme",
   "dependencies": {
     "adm-zip": "^0.4.7",
     "case": "^1.5.4",
@@ -51,8 +43,6 @@
     "uuid": "^3.1.0",
     "yargs": "^11.0.0"
   },
-  "deprecated": false,
-  "description": "OpenAPI 3.0 CodeGen",
   "devDependencies": {
     "ajv": "^6.0.1",
     "babel-core": "^6.26.0",
@@ -62,23 +52,5 @@
     "node-readfiles": "^0.2.0",
     "should": "^13.1.3",
     "webpack": "^3.8.1"
-  },
-  "homepage": "https://github.com/Mermade/openapi-codegen#readme",
-  "keywords": [
-    "openapi",
-    "swagger",
-    "openapi3",
-    "codegen"
-  ],
-  "license": "Apache-2.0",
-  "main": "index.js",
-  "name": "openapi-codegen",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Mermade/openapi-codegen.git"
-  },
-  "scripts": {
-    "test": "npx mocha --delay"
-  },
-  "version": "1.5.0"
+  }
 }

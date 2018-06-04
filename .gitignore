@@ -1,0 +1,10 @@
+node_modules/
+templates/META-INF/
+templates/logback.xml
+*.log
+*.zip
+out/
+dev/
+dist/
+issues/
+*.swp
