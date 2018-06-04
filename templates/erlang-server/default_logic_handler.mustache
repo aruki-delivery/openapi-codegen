@@ -1,0 +1,27 @@
+-module({{classname}}_default_logic_handler).
+
+-behaviour({{classname}}_logic_handler).
+
+-export([handle_request/3]).
+{{#authMethods}}
+-export([authorize_api_key/2]).
+{{/authMethods}}
+
+{{#authMethods}}
+-spec authorize_api_key(OperationID :: {{classname}}_apidef:operation_id(), ApiKey :: binary()) -> {true, #{}}.
+authorize_api_key(_, _) -> {true, #{}}.
+{{/authMethods}}
+
+-spec handle_request(
+    OperationID :: {{classname}}_apidef:operation_id(),
+    Req :: cowboy_req:req(),
+    Context :: {{classname}}_logic_handler:context()
+) ->
+    {Status :: cowboy:http_status(), Headers :: cowboy:http_headers(), Body :: #{}}.
+
+handle_request(OperationID, Req, Context) ->
+    error_logger:error_msg(
+        "Got not implemented request to process: ~p~n",
+        [{OperationID, Req, Context}]
+    ),
+    {501, #{}, #{}}.

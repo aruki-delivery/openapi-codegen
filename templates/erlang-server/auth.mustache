@@ -1,0 +1,51 @@
+-module({{classname}}_auth).
+
+-export([authorize_api_key/5]).
+
+-spec authorize_api_key(
+    LogicHandler :: atom(),
+    OperationID :: {{classname}}_apidef:operation_id(),
+    From :: header | qs_val,
+    KeyParam :: iodata() | atom(),
+    Req ::cowboy_req:req()
+)-> {true, Context :: #{binary() => any()}, Req ::cowboy_req:req()} |
+    {false, AuthHeader :: binary(), Req ::cowboy_req:req()}.
+
+authorize_api_key(LogicHandler, OperationID, From, KeyParam, Req0) ->
+    {ApiKey, Req} = get_api_key(From, KeyParam, Req0),
+    case ApiKey of
+        undefined ->
+            AuthHeader = <<"">>,
+            {false, AuthHeader, Req};
+        _ ->
+            Result = {{classname}}_logic_handler:authorize_api_key(
+                LogicHandler,
+                OperationID,
+                ApiKey
+            ),
+            case Result of
+              {{#authMethods}}
+                {{#isApiKey}}
+                {true, Context}  ->
+                    {true, Context, Req};
+                {{/isApiKey}}
+              {{/authMethods}}
+                false ->
+                    AuthHeader = <<"">>,
+                    {false, AuthHeader, Req}
+            end
+    end.
+
+get_api_key(header, KeyParam, Req0) ->
+    NormalizedKey = aruki_phoenix_api_utils:to_header(KeyParam),
+    Value = cowboy_req:header(NormalizedKey, Req0),
+    {Value, Req0};
+    
+get_api_key(qs_val, KeyParam, Req0) ->
+    QS = cowboy_req:parse_qs(Req0),
+    Value = aruki_phoenix_api_utils:get_opt(KeyParam, QS),
+    {Value, Req0}.
+
+
+
+
