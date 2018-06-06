@@ -29,9 +29,10 @@
 
 -type state() :: state().
 
-init(Req, _State) ->
-    {ok, Req0} = cowboy_req:reply(501, #{<<"content-type">> => <<"text/plain">>}, "Not Implemented", Req),
-    {halt, Req0, no_state}.
+init(Req, State) ->
+    cowboy_req:reply(501, #{<<"content-type">> => <<"text/plain">>}, "Not Implemented", Req),
+    {ok, Req, State}.
+
 
 -spec rest_init(Req :: cowboy_req:req(), Opts :: {{packageName}}_router:init_opts()) ->
     {ok, Req :: cowboy_req:req(), State :: state()}.
