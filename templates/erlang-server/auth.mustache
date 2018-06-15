@@ -37,11 +37,11 @@ authorize_api_key(LogicHandler, OperationID, From, KeyParam, Req0) ->
     end.
 
 get_api_key(header, KeyParam, Req0) ->
-    NormalizedKey = aruki_phoenix_api_utils:to_header(KeyParam),
+    NormalizedKey = phoenix_swarm_utils:to_header(KeyParam),
     Value = cowboy_req:header(NormalizedKey, Req0),
     {Value, Req0};
     
 get_api_key(qs_val, KeyParam, Req0) ->
     QS = cowboy_req:parse_qs(Req0),
-    Value = aruki_phoenix_api_utils:get_opt(KeyParam, QS),
+    Value = phoenix_swarm_utils:get_opt(KeyParam, QS),
     {Value, Req0}.

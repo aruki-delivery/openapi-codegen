@@ -314,13 +314,13 @@ get_value(qs_val, Name, Req0) ->
     {Value, Req0};
 
 get_value(header, Name, Req0) ->
-    NormalizedName = aruki_phoenix_api_utils:to_header(Name),
+    NormalizedName = phoenix_swarm_utils:to_header(Name),
     Value = cowboy_req:header(NormalizedName, Req0),
     {Value, Req0};
 
 
 get_value(binding, Name, Req0) ->
-    NormalizedName = aruki_phoenix_api_utils:to_binding(Name),
+    NormalizedName = phoenix_swarm_utils:to_binding(Name),
     Value = cowboy_req:binding(NormalizedName, Req0),
     {Value, Req0}.
 
