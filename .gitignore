@@ -8,3 +8,6 @@ dev/
 dist/
 issues/
 *.swp
+.vscode/
+.idea/
+*.iml
