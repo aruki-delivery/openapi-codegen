@@ -453,7 +453,6 @@ function convertToApis(source,obj,defaults) {
                 if (!entry) {
                     entry = {};
                     entry.name = tagName;
-
                     if (defaults.apiNaming === 'snake_case') {
                         entry.classname = tagName+'_api';
                         entry.classFilename = tagName+'_api';
@@ -612,6 +611,7 @@ function getBase() {
     base.apiDocPath = '';
     base.modelDocPath = '';
     base.classPrefix = 'cls';
+    base.apiNaming = 'original';
 
     //extensions
     base.modelNaming = 'original'; /* {camelCase, PascalCase, snake_case, original, UPPERCASE} */
