@@ -54,6 +54,8 @@ function main(o, config, configName, callback) {
                 console.log("Pre-processing API: ");
                 console.dir(api);
             }
+
+            /*
             if (config.defaults.apiNaming === 'snake_case') {
                 api.classname = Case.snake(api.classname);
                 if (api.classname.endsWith("api") && !api.classname.endsWith("_api")) {
@@ -64,7 +66,12 @@ function main(o, config, configName, callback) {
                     api.classFilename = api.classname.slice(0, -3) + "_api";
                 }
             }
-            if (config.defaults.apiPrefix !== '') {
+            */
+
+            if (api.packageName !== '') {
+                api.classname = api.packageName + api.classname;
+                api.classFilename = api.packageName + api.classFilename;
+            } else if (config.defaults.apiPrefix !== '') {
                 api.classname = config.defaults.apiPrefix + api.classname;
                 api.classFilename = config.defaults.apiPrefix + api.classFilename;
             }
