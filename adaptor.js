@@ -126,7 +126,10 @@ function specificationExtensions(obj) {
     return result;
 }
 
-function convertOperation(op,verb,path,pathItem,obj,api) {
+function convertOperation(defaults,op,verb,path,pathItem,obj,api) {
+    if (defaults.verbose) {
+        console.log('Converting Operation...');
+    }
     let operation = {};
     operation.httpMethod = verb.toUpperCase();
     if (obj.httpMethodCase === 'original') operation.httpMethod = verb; // extension
@@ -201,8 +204,8 @@ function convertOperation(op,verb,path,pathItem,obj,api) {
         parameter.isBoolean = (param.schema.type === 'boolean');
         parameter.isPrimitiveType = (!param.schema["x-oldref"]);
         parameter.dataFormat = param.schema.format;
-        parameter.isDate = (parameter.dataFormat == 'date');
-        parameter.isDateTime = (parameter.dataFormat == 'date-time');
+        parameter.isDate = (parameter.dataFormat === 'date');
+        parameter.isDateTime = (parameter.dataFormat === 'date-time');
         parameter.description = param.description||'';
         parameter.unescapedDescription = param.description;
         parameter.defaultValue = param.default;
@@ -421,6 +424,11 @@ function convertOperation(op,verb,path,pathItem,obj,api) {
 
     operation.openapi.callbacks = op.callbacks;
 
+    if (defaults.verbose) {
+        console.log('Generated operation:');
+        console.dir(operation);
+    }
+
     //let container = {};
     //container.baseName = operation.nickname;
     //container.operation = operation;
@@ -475,7 +483,7 @@ function convertToApis(source,obj,defaults) {
                         console.log('Skipped already processed Tag: ' + tagName);
                     }
                 }
-                let operation = convertOperation(op,m,p,source.paths[p],obj,source);
+                let operation = convertOperation(defaults,op,m,p,source.paths[p],obj,source);
                 entry.operations.operation.push(operation);
             }
         }
