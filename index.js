@@ -63,7 +63,7 @@ function main(o, config, configName, callback) {
             if (config.defaults.apiPrefix !== '') {
                 api.classname = config.defaults.apiPrefix + api.classname;
                 api.classFilename = config.defaults.apiPrefix + api.classFilename;
-            }    
+            }
         }
 
 
@@ -113,7 +113,11 @@ function main(o, config, configName, callback) {
                         for (let api of model.apiInfo.apis) {
                             let cApi = Object.assign({},config.defaults,pa.defaults||{},toplevel,api);
                             let filename = fnTemplate.render(cApi,config.partials);
-                            if (verbose) console.log('Rendering '+filename+' (dynamic:'+pa.input+')');
+                            if (verbose) {
+                                console.log('Rendering '+filename+' (dynamic:'+pa.input+')');
+                                console.log('Passing params: ');
+                                console.dir(config.partials);
+                            }
                             ff.createFile(path.join(outputDir,subDir,filename),template.render(cApi,config.partials),'utf8');
                         }
                     }
