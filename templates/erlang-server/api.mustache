@@ -1,4 +1,4 @@
--module({{classname}}_apidef).
+-module({{apiPrefix}}{{apiPrefix}}{{classname}}_apidef).
 
 -export([request_params/1]).
 -export([request_param_info/2]).
@@ -158,7 +158,7 @@ validate(_, _Name, undefined, _ValidatorState) ->
 
 validate(Rule = {type, 'integer'}, Name, Value, _ValidatorState) ->
     try
-        {ok, {{classname}}_utils:to_int(Value)}
+        {ok, {{apiPrefix}}{{classname}}_utils:to_int(Value)}
     catch
         error:badarg ->
             validation_error(Rule, Name)
@@ -166,7 +166,7 @@ validate(Rule = {type, 'integer'}, Name, Value, _ValidatorState) ->
 
 validate(Rule = {type, 'float'}, Name, Value, _ValidatorState) ->
     try
-        {ok, {{classname}}_utils:to_float(Value)}
+        {ok, {{apiPrefix}}{{classname}}_utils:to_float(Value)}
     catch
         error:badarg ->
             validation_error(Rule, Name)
@@ -261,7 +261,7 @@ validate(Rule = {pattern, Pattern}, Name, Value, _ValidatorState) ->
     end;
 
 validate(Rule = schema, Name, Value, ValidatorState) ->
-    Definition =  list_to_binary("#/definitions/" ++ {{classname}}_utils:to_list(Name)),
+    Definition =  list_to_binary("#/definitions/" ++ {{apiPrefix}}{{classname}}_utils:to_list(Name)),
     try
         _ = validate_with_schema(Value, Definition, ValidatorState),
         ok
@@ -297,7 +297,7 @@ validation_error(ViolatedRule, Name, Info) ->
     throw({wrong_param, Name, ViolatedRule, Info}).
 
 -spec get_value(body | qs_val | header | binding, Name :: any(), Req0 :: cowboy_req:req()) ->
-    {Value :: any(), Req :: cowboy_req:req()} | 
+    {Value :: any(), Req :: cowboy_req:req()} |
     {error, Reason :: any(), Req :: cowboy_req:req()}.
 get_value(body, _Name, Req0) ->
     {ok, Body, Req} = cowboy_req:read_body(Req0),
@@ -310,7 +310,7 @@ get_value(body, _Name, Req0) ->
 
 get_value(qs_val, Name, Req0) ->
     QS = cowboy_req:parse_qs(Req0),
-    Value = {{classname}}_utils:get_opt({{classname}}_utils:to_qs(Name), QS),
+    Value = {{apiPrefix}}{{classname}}_utils:get_opt({{apiPrefix}}{{classname}}_utils:to_qs(Name), QS),
     {Value, Req0};
 
 get_value(header, Name, Req0) ->
@@ -329,7 +329,7 @@ prepare_body(Body) ->
         <<"">> -> <<"">>;
         _ ->
             try
-                jsx:decode(Body, [return_maps]) 
+                jsx:decode(Body, [return_maps])
             catch
               error:_ ->
                 {error, {invalid_body, not_json, Body}}
@@ -362,4 +362,4 @@ prepare_param(Rules, Name, Value, ValidatorState) ->
     end.
 
 binary_to_lower(V) when is_binary(V) ->
-    list_to_binary(string:to_lower({{classname}}_utils:to_list(V))).
+    list_to_binary(string:to_lower({{apiPrefix}}{{classname}}_utils:to_list(V))).

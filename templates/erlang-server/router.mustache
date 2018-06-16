@@ -1,9 +1,9 @@
--module({{classname}}_router).
+-module({{apiPrefix}}{{classname}}_router).
 
 -export([get_paths/1]).
 
 -type operations() :: #{
-    Method :: binary() => {{classname}}_apidef:operation_id()
+    Method :: binary() => {{apiPrefix}}{{classname}}_apidef:operation_id()
 }.
 
 -type init_opts()  :: {
@@ -58,7 +58,7 @@ get_operations() ->
         '{{operationId}}' => #{
             path => "{{{basePathWithoutHost}}}{{{replacedPathName}}}",
             method => <<"{{httpMethod}}">>,
-            handler => '{{classname}}_handler'
+            handler => '{{apiPrefix}}{{classname}}_handler'
         }{{#hasMore}},{{/hasMore}}{{/operation}}{{#hasMore}},{{/hasMore}}{{/operations}}{{/apis}}{{/apiInfo}}
     }.
 
@@ -69,4 +69,4 @@ prepare_validator() ->
 
 get_swagger_path() ->
     {ok, AppName} = application:get_application(?MODULE),
-    filename:join({{classname}}_utils:priv_dir(AppName), "swagger.json").
+    filename:join({{apiPrefix}}{{classname}}_utils:priv_dir(AppName), "swagger.json").

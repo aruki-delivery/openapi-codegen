@@ -1,6 +1,6 @@
--module({{classname}}_default_logic_handler).
+-module({{apiPrefix}}{{classname}}_default_logic_handler).
 
--behaviour({{classname}}_logic_handler).
+-behaviour({{apiPrefix}}{{classname}}_logic_handler).
 
 -export([handle_request/3]).
 {{#authMethods}}
@@ -8,14 +8,14 @@
 {{/authMethods}}
 
 {{#authMethods}}
--spec authorize_api_key(OperationID :: {{classname}}_apidef:operation_id(), ApiKey :: binary()) -> {true, #{}}.
+-spec authorize_api_key(OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(), ApiKey :: binary()) -> {true, #{}}.
 authorize_api_key(_, _) -> {true, #{}}.
 {{/authMethods}}
 
 -spec handle_request(
-    OperationID :: {{classname}}_apidef:operation_id(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     Req :: cowboy_req:req(),
-    Context :: {{classname}}_logic_handler:context()
+    Context :: {{apiPrefix}}{{classname}}_logic_handler:context()
 ) ->
     {Status :: cowboy:http_status(), Headers :: cowboy:http_headers(), Body :: #{}}.
 

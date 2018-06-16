@@ -1,10 +1,10 @@
--module({{classname}}_auth).
+-module({{apiPrefix}}{{classname}}_auth).
 
 -export([authorize_api_key/5]).
 
 -spec authorize_api_key(
     LogicHandler :: atom(),
-    OperationID :: {{classname}}_apidef:operation_id(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     From :: header | qs_val,
     KeyParam :: iodata() | atom(),
     Req ::cowboy_req:req()
@@ -18,7 +18,7 @@ authorize_api_key(LogicHandler, OperationID, From, KeyParam, Req0) ->
             AuthHeader = <<"">>,
             {false, AuthHeader, Req};
         _ ->
-            Result = {{classname}}_logic_handler:authorize_api_key(
+            Result = {{apiPrefix}}{{classname}}_logic_handler:authorize_api_key(
                 LogicHandler,
                 OperationID,
                 ApiKey
@@ -40,7 +40,7 @@ get_api_key(header, KeyParam, Req0) ->
     NormalizedKey = phoenix_swarm_utils:to_header(KeyParam),
     Value = cowboy_req:header(NormalizedKey, Req0),
     {Value, Req0};
-    
+
 get_api_key(qs_val, KeyParam, Req0) ->
     QS = cowboy_req:parse_qs(Req0),
     Value = phoenix_swarm_utils:get_opt(KeyParam, QS),

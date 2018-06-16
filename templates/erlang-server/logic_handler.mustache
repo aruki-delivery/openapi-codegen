@@ -1,4 +1,4 @@
--module({{classname}}_logic_handler).
+-module({{apiPrefix}}{{classname}}_logic_handler).
 
 -export([handle_request/4]).
 -export([authorize_api_key/3]).
@@ -13,7 +13,7 @@
 
 {{#authMethods}}
 -callback authorize_api_key(
-    OperationID :: {{classname}}_apidef:operation_id(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     ApiKey :: binary()
 ) ->
     Result :: boolean() | {boolean(), context()}.
@@ -21,7 +21,7 @@
 
 
 -callback handle_request(
-    OperationID :: {{classname}}_apidef:operation_id(), 
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     Request :: cowboy_req:req(),
     Context :: context()
 ) ->
@@ -29,7 +29,7 @@
 
 -spec handle_request(
     Handler :: atom(),
-    OperationID :: {{classname}}_apidef:operation_id(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     Request :: cowboy_req:req(),
     Context :: context()
 ) ->
@@ -40,8 +40,8 @@ handle_request(Handler, OperationID, Req, Context) ->
 
 {{#authMethods}}
 -spec authorize_api_key(
-    Handler :: atom(), 
-    OperationID :: {{classname}}_apidef:operation_id(), 
+    Handler :: atom(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     ApiKey :: binary()
 ) ->
     Result :: false | {true, context()}.
@@ -50,8 +50,8 @@ authorize_api_key(Handler, OperationID, ApiKey) ->
 {{/authMethods}}
 {{^authMethods}}
 -spec authorize_api_key(
-    Handler :: atom(), 
-    OperationID :: {{classname}}_apidef:operation_id(), 
+    Handler :: atom(),
+    OperationID :: {{apiPrefix}}{{classname}}_apidef:operation_id(),
     ApiKey :: binary()
 ) ->
     Result :: false.
