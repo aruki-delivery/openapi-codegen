@@ -449,17 +449,19 @@ function convertToApis(source,obj,defaults) {
                 let entry = apis.find(function(e,i,a){
                     return (e.name === tagName);
                 });
-                
+
                 if (!entry) {
                     entry = {};
                     entry.name = tagName;
-                    //if (defaults.language === 'typescript') {
-                    //    entry.classname = Case.pascal(entry.name);
-                    //}
-                    //else {
-                    entry.classname = tagName+'Api';
-                    //}
-                    entry.classFilename = tagName+'Api';
+
+                    if (defaults.apiNaming === 'snake_case') {
+                        entry.classname = tagName+'_api';
+                        entry.classFilename = tagName+'_api';
+                    } else {
+                        entry.classname = tagName+'Api';
+                        entry.classFilename = tagName+'Api';
+                    }
+
                     entry.classVarName = tagName; // see issue #21
                     entry.packageName = obj.packageName; //! this may not be enough / sustainable. Or many props at wrong level :(
                     entry.operations = {};
@@ -469,6 +471,10 @@ function convertToApis(source,obj,defaults) {
                         console.dir(entry);
                     }
                     apis.push(entry);
+                } else {
+                    if (defaults.verbose) {
+                        console.log('Skipped already processed Tag: ' + tagName);
+                    }
                 }
                 let operation = convertOperation(op,m,p,source.paths[p],obj,source);
                 entry.operations.operation.push(operation);
