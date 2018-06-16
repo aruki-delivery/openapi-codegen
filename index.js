@@ -51,8 +51,7 @@ function main(o, config, configName, callback) {
 
         for (let api of model.apiInfo.apis) {
             if (verbose) {
-                console.log("Pre-processing API: ");
-                console.dir(api);
+                console.log("Pre-processing API: " + api.classname);
             }
 
             /*
@@ -78,7 +77,7 @@ function main(o, config, configName, callback) {
 
             if (verbose) {
                 console.log("Finished pre-processing API: " + api.classname);
-                console.dir(api);
+                //console.dir(api);
             }
         }
 
