@@ -51,7 +51,8 @@ function main(o, config, configName, callback) {
 
         for (let api of model.apiInfo.apis) {
             if (verbose) {
-                console.log("Pre-processing API: " + api.classname);
+                console.log("Pre-processing API: ");
+                console.dir(api);
             }
             if (config.defaults.apiNaming === 'snake_case') {
                 api.classname = Case.snake(api.classname);

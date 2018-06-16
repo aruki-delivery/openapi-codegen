@@ -127,10 +127,6 @@ function specificationExtensions(obj) {
 }
 
 function convertOperation(defaults,op,verb,path,pathItem,obj,api) {
-    if (defaults.verbose) {
-        console.log('Converting Operation...');
-        console.dir(op);
-    }
     let operation = {};
     operation.httpMethod = verb.toUpperCase();
     if (obj.httpMethodCase === 'original') operation.httpMethod = verb; // extension
