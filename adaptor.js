@@ -429,6 +429,9 @@ function convertOperation(op,verb,path,pathItem,obj,api) {
 }
 
 function convertToApis(source,obj,defaults) {
+    if (defaults.verbose) {
+        console.log('Converting to APIs...');
+    }
     let apis = [];
     for (let p in source.paths) {
         for (let m in source.paths[p]) {
@@ -438,9 +441,15 @@ function convertToApis(source,obj,defaults) {
                 if (op.tags && op.tags.length > 0) {
                     tagName = op.tags[0];
                 }
+
+                if (defaults.verbose) {
+                    console.log('Checking API Tag: ' + tagName);
+                }
+
                 let entry = apis.find(function(e,i,a){
                     return (e.name === tagName);
                 });
+                
                 if (!entry) {
                     entry = {};
                     entry.name = tagName;
@@ -455,6 +464,10 @@ function convertToApis(source,obj,defaults) {
                     entry.packageName = obj.packageName; //! this may not be enough / sustainable. Or many props at wrong level :(
                     entry.operations = {};
                     entry.operations.operation = [];
+                    if (defaults.verbose) {
+                        console.log('Creating API entry:');
+                        console.dir(entry);
+                    }
                     apis.push(entry);
                 }
                 let operation = convertOperation(op,m,p,source.paths[p],obj,source);

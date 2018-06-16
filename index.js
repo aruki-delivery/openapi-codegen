@@ -115,8 +115,8 @@ function main(o, config, configName, callback) {
                             let filename = fnTemplate.render(cApi,config.partials);
                             if (verbose) {
                                 console.log('Rendering '+filename+' (dynamic:'+pa.input+')');
-                                console.log('Passing params: ');
-                                console.dir(config.partials);
+                                console.log("cApi[\"classname\"]");
+                                console.dir(cApi["classname"]);
                             }
                             ff.createFile(path.join(outputDir,subDir,filename),template.render(cApi,config.partials),'utf8');
                         }
