@@ -50,6 +50,9 @@ function main(o, config, configName, callback) {
 
 
         for (let api of model.apiInfo.apis) {
+            if (verbose) {
+                console.log("Pre-processing API: " + api.classname);
+            }
             if (config.defaults.apiNaming === 'snake_case') {
                 api.classname = Case.snake(api.classname);
                 if (api.classname.endsWith("api") && !api.classname.endsWith("_api")) {
@@ -63,6 +66,11 @@ function main(o, config, configName, callback) {
             if (config.defaults.apiPrefix !== '') {
                 api.classname = config.defaults.apiPrefix + api.classname;
                 api.classFilename = config.defaults.apiPrefix + api.classFilename;
+            }
+
+            if (verbose) {
+                console.log("Finished pre-processing API: " + api.classname);
+                console.dir(api);
             }
         }
 

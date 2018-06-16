@@ -129,6 +129,7 @@ function specificationExtensions(obj) {
 function convertOperation(defaults,op,verb,path,pathItem,obj,api) {
     if (defaults.verbose) {
         console.log('Converting Operation...');
+        console.dir(op);
     }
     let operation = {};
     operation.httpMethod = verb.toUpperCase();
@@ -425,8 +426,7 @@ function convertOperation(defaults,op,verb,path,pathItem,obj,api) {
     operation.openapi.callbacks = op.callbacks;
 
     if (defaults.verbose) {
-        console.log('Generated operation:');
-        console.dir(operation);
+        console.log('Generated operation: ' + operation.operationId);
     }
 
     //let container = {};
