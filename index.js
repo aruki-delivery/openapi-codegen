@@ -69,8 +69,8 @@ function main(o, config, configName, callback) {
             */
 
             if (api.packageName !== '') {
-                api.classname = api.packageName + api.classname;
-                api.classFilename = api.packageName + api.classFilename;
+                api.classname = api.packageName + '_' + api.classname;
+                api.classFilename = api.packageName + '_' + api.classFilename;
             } else if (config.defaults.apiPrefix !== '') {
                 api.classname = config.defaults.apiPrefix + api.classname;
                 api.classFilename = config.defaults.apiPrefix + api.classFilename;
