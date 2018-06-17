@@ -329,7 +329,7 @@ prepare_body(Body) ->
         <<"">> -> <<"">>;
         _ ->
             try
-                'Elixir.JSON':'decode!'(Body, [return_maps])
+                'Elixir.JSON':'decode!'(Body)
             catch
               error:_ ->
                 {error, {invalid_body, not_json, Body}}
