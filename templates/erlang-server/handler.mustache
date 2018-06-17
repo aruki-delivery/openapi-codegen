@@ -210,7 +210,7 @@ handle_request_json(
                 Body,
                 ValidatorState
             ),
-            PreparedBody = jsx:encode(Body),
+            PreparedBody = 'Elixir.JSON':'encode!'(Body),
             Response = {ok, {Code, Headers, PreparedBody}},
             process_response(Response, Req1, State);
         {error, Reason, Req1} ->
