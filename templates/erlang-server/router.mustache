@@ -58,7 +58,7 @@ get_operations() ->
         '{{operationId}}' => #{
             path => "{{{basePathWithoutHost}}}{{{replacedPathName}}}",
             method => <<"{{httpMethod}}">>,
-            handler => '{{apiPrefix}}{{classname}}_handler'
+            handler => '{{classname}}_handler'
         }{{#hasMore}},{{/hasMore}}{{/operation}}{{#hasMore}},{{/hasMore}}{{/operations}}{{/apis}}{{/apiInfo}}
     }.
 
