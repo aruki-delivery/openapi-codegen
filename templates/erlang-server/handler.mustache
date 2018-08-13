@@ -63,21 +63,21 @@ allowed_methods(Req, State) ->
         State :: state()
     }.
 
-{{#operations}}{{#operation}}
-%TODO: implement me
-%is_authorized(
-%    Req0,
-%    State = #state{
-%        operation_id = '{{operationId}}' = OperationID,
-%        logic_handler = LogicHandler
-%    }
-%) ->
-%    AuthHeader = <<"">>,
-%    { {false, AuthHeader}, Req0, State}.
-{{/operation}}{{/operations}}
-is_authorized(Req, State) ->
-    %TODO: implement me
-    {true, Req, State}.
+is_authorized(
+     Req,
+     State = #state{
+        operation_id = OperationID,
+        logic_handler = LogicHandler
+    }
+) ->
+    %TODO: implement me, fetch Auth key
+    AuthHeader = <<"">>,
+    case {{packageName}}_logic_handler:authorize_api_key(LogicHandler, OperationID, AuthHeader) of
+        false ->
+            { {false, AuthHeader}, Req, State};
+        {true, _Ctx} ->
+            {true, Req, State}
+    end.
 
 -spec content_types_accepted(Req :: cowboy_req:req(), State :: state()) ->
     {
