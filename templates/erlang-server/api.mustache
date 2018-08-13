@@ -260,10 +260,9 @@ validate(Rule = {pattern, Pattern}, Name, Value, _ValidatorState) ->
         _ -> validation_error(Rule, Name)
     end;
 
-
 validate(Rule = schema, Name, Value, ValidatorState) ->
     case {{apiPrefix}}{{classname}}_utils:to_list(Name) of
-        %TODO: better validations
+        %TODO: better validations for JS native types
         "array" -> ok;
         "any" -> ok;
         "boolean" -> ok;
