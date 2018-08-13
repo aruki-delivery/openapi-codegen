@@ -260,26 +260,39 @@ validate(Rule = {pattern, Pattern}, Name, Value, _ValidatorState) ->
         _ -> validation_error(Rule, Name)
     end;
 
+
 validate(Rule = schema, Name, Value, ValidatorState) ->
-    Definition =  list_to_binary("#/definitions/" ++ {{apiPrefix}}{{classname}}_utils:to_list(Name)),
-    try
-        _ = validate_with_schema(Value, Definition, ValidatorState),
-        ok
-    catch
-        throw:[{schema_invalid, _, Error} | _] ->
-            Info = #{
-                type => schema_invalid,
-                error => Error
-            },
-            validation_error(Rule, Name, Info);
-        throw:[{data_invalid, Schema, Error, _, Path} | _] ->
-            Info = #{
-                type => data_invalid,
-                error => Error,
-                schema => Schema,
-                path => Path
-            },
-            validation_error(Rule, Name, Info)
+    case {{apiPrefix}}{{classname}}_utils:to_list(Name) of
+        %TODO: better validations
+        "array" -> ok;
+        "any" -> ok;
+        "boolean" -> ok;
+        "integer" -> ok;
+        "null" -> ok;
+        "number" -> ok;
+        "object" -> ok;
+        "string" -> ok;
+        SchemaName ->
+            Definition =  list_to_binary("#/definitions/" ++ SchemaName),
+                try
+                    _ = validate_with_schema(Value, Definition, ValidatorState),
+                    ok
+                catch
+                    throw:[{schema_invalid, _, Error} | _] ->
+                        Info = #{
+                            type => schema_invalid,
+                            error => Error
+                        },
+                        validation_error(Rule, Name, Info);
+                    throw:[{data_invalid, Schema, Error, _, Path} | _] ->
+                        Info = #{
+                            type => data_invalid,
+                            error => Error,
+                            schema => Schema,
+                            path => Path
+                        },
+                        validation_error(Rule, Name, Info)
+                end
     end;
 
 validate(Rule, Name, _Value, _ValidatorState) ->
