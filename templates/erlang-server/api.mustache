@@ -341,7 +341,7 @@ prepare_body(Body) ->
         <<"">> -> <<"">>;
         _ ->
             try
-                'Elixir.JSON':'decode!'(Body)
+                'Elixir.Jason':'decode!'(Body)
             catch
               error:_ ->
                 {error, {invalid_body, not_json, Body}}
