@@ -190,7 +190,7 @@ handle_request_json(
 ) ->
     case {{packageName}}_apidef:populate_request(OperationID, Req0, ValidatorState) of
         {ok, Populated, Req1} ->
-            {Code, Headers, Body} = {{packageName}}_logic_handler:handle_request(
+             {Code, Headers, Body} = {{packageName}}_logic_handler:handle_request(
                 LogicHandler,
                 OperationID,
                 Populated,

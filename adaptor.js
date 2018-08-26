@@ -131,7 +131,7 @@ function convertOperation(defaults,op,verb,path,pathItem,obj,api) {
     operation.httpMethod = verb.toUpperCase();
     if (obj.httpMethodCase === 'original') operation.httpMethod = verb; // extension
     operation.path = path;
-    operation.replacedPathName = path.replace("{", ":").replace("}", ""); //?
+    operation.replacedPathName = path.replace(/{(\w+)}/g, ":$1"); //?
 
     operation.operationId = op.operationId||('operation'+obj.openapi.operationCounter++);
     operation.operationIdLowerCase = operation.operationId.toLowerCase();
